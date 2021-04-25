@@ -1,27 +1,19 @@
-# zipcode-microservice
-A Node.js microservice which determines the distance for a specific zip code.
+# TEST SUITE - unit tests with Mocha
 
-To build the project, download it into a local directory.
- 
-You will need to update the apiKey property in service/distance.js with your own from
-https://www.zipcodeapi.com/API
-
-You can also set environment variables for PORT and ZIPCODE_API_KEY which be read into the program at run-time
-
-To run the program, execute the following from the commandline:
+Para poder ejecutar la aplicación:
 
 `npm install`
 
 `npm start`
 
-An example request which you can submit is:
+Para ejecutar los tests:
 
-`http://localhost:3000/distance/97035/97001`
+`npm test`
 
-And the response should be:
+## ¿Cómo testear la aplicación?
 
-`{"distance":107.319}`
-
-An incorrect request, such as one which includes an invalid zip code should result in:
-
-`{"distance":-1}`
+1. Instalar mocha, chai y chai-http
+2. Añadir el script "test": "mocha --timeout 10000" en el package.json
+3. En el archivo principal de la aplicación, donde se crea la aplicación Express, es necesario importar esta app para que pueda ser usada por los archivos de test
+4. Crear la carpeta test en la raíz de la aplicación
+5. Crear los archivos de test segun la sintaxis provista por Mocha y Chai. Un par de archivos de ejemplo son provistos en esta carpeta
