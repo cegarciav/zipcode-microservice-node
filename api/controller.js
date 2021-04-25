@@ -1,23 +1,61 @@
 'use strict';
 
-var properties = require('../package.json')
-var distance = require('../service/distance');
+const properties = require('../package.json')
+const { numberSum } = require('../service/sum');
+const { numberMultiply } = require('../service/multiply');
 
-var controllers = {
+const controllers = {
     about: function(req, res) {
-        var aboutInfo = {
+        let aboutInfo = {
             name: properties.name,
             version: properties.version
         }
         res.json(aboutInfo);
     },
-    get_distance: function(req, res) {
-            distance.find(req, res, function(err, dist) {
-                if (err)
-                    res.send(err);
-                res.json(dist);
+    getSum: async function(req, res) {
+        try {
+            const values = req.query.values;
+            if (!values)
+                throw "values param is required";
+            const numbers = String(values).split(",");
+            if (numbers.length === 0)
+                throw "values param must be a list of comma-separated numbers";
+            let finalSum = await numberSum(...numbers);
+            res.json({
+                message: "ok",
+                result: finalSum
             });
-        },
+        }
+        catch (e) {
+            res.status(400)
+            res.json({
+                message: "error",
+                result: e
+            });
+        }
+    },
+    getProduct: async function(req, res) {
+        try {
+            const values = req.query.values;
+            if (!values)
+                throw "values param is required";
+            const numbers = String(values).split(",");
+            if (numbers.length === 0)
+                throw "values param must be a list of comma-separated numbers";
+            let finalProduct = await numberMultiply(...numbers);
+            res.json({
+                message: "ok",
+                result: finalProduct
+            });
+        }
+        catch (e) {
+            res.status(400)
+            res.json({
+                message: "error",
+                result: e
+            });
+        }
+    }
 };
 
 module.exports = controllers;
