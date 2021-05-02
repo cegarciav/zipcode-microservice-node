@@ -1,11 +1,15 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const appLogger = require('./logs');
 const app = express();
 const port = process.env.PORT || 3000;
 
 const routes = require('./api/routes');
 routes(app);
-app.use(bodyParser.json());
+
+// Make appLogger available for the whole app
+app.locals.logger = new appLogger('development');
+
+
 app.listen(port, function() {
     console.log('Server started on port: ' + port);
 });

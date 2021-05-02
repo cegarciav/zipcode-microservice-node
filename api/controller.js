@@ -27,6 +27,14 @@ const controllers = {
             });
         }
         catch (e) {
+            req.app
+                .locals
+                .logger
+                .debugLog(
+                    'controller.js:52',
+                    'some error',
+                    e
+                );
             res.status(400)
             res.json({
                 message: "error",
