@@ -1,4 +1,4 @@
-# TEST SUITE - unit tests with Mocha
+# TEST SUITE - unit tests with Mocha (test branch)
 
 Para poder ejecutar la aplicación:
 
