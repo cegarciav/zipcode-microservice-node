@@ -9,4 +9,6 @@ module.exports = function(app) {
         .get(controller.getSum);
     app.route('/multiply')
         .post(controller.getProduct);
+    app.route('/user')
+        .post(controller.createUser);
 };
