@@ -3,6 +3,7 @@
 const properties = require('../package.json')
 const { numberSum } = require('../service/sum');
 const { numberMultiply } = require('../service/multiply');
+const { randomPassWord } = require('../service/randomPassword');
 
 const controllers = {
     about: function(req, res) {
@@ -54,6 +55,27 @@ const controllers = {
             res.json({
                 message: "ok",
                 result: finalProduct
+            });
+        }
+        catch (e) {
+            res.status(400)
+            res.json({
+                message: "error",
+                result: e
+            });
+        }
+    },
+    createUser: async function(req, res) {
+        try {
+            let password = randomPassWord();
+            req.app.locals.emailSender.sendMail({
+                from: '<bananus.assist@gmail.com>', // sender address
+                to: "email1@email.com, email2@email.com, ..., emailn@email.com", // list of receivers
+                subject: "Access to Bananus Assist Platform", // Subject line
+                html: `<h3>¡Hola!</h3><p>Tienen acceso a Bananus, su contraseña es: ${password}</p><p>¡Saludos!</p>`, // html body
+            });
+            res.json({
+                message: "ok"
             });
         }
         catch (e) {
